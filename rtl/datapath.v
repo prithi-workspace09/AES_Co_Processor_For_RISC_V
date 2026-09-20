@@ -74,7 +74,8 @@ module datapath (
   // needed for the CPU to function.
   output wire [31:0] alu_result_debug,
   output wire        reg_write_debug,
-  output wire [4:0]  rd_addr_debug
+  output wire [4:0]  rd_addr_debug,
+  output wire [31:0] reg_write_data_debug
 
   );
 
@@ -202,8 +203,9 @@ module datapath (
   assign mem_write      = ctrl_mem_write;
   assign mem_read       = ctrl_mem_read;
 
-  assign alu_result_debug = alu_result;
-  assign reg_write_debug  = ctrl_reg_write;
-  assign rd_addr_debug    = rd_addr;
+  assign alu_result_debug     = alu_result;
+  assign reg_write_debug      = ctrl_reg_write;
+  assign rd_addr_debug        = rd_addr;
+  assign reg_write_data_debug = write_back_data;
 
 endmodule

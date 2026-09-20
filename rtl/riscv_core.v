@@ -36,6 +36,7 @@ module riscv_core (
   output wire [31:0] alu_result_debug,
   output wire        reg_write_debug,
   output wire [4:0]  rd_addr_debug,
+  output wire [31:0] reg_write_data_debug,
   output wire        mem_write_debug,
   output wire [31:0] mem_addr_debug,
   output wire [31:0] mem_write_data_debug
@@ -61,9 +62,10 @@ module riscv_core (
     .mem_write         (mem_write),
     .mem_read          (mem_read),
     .mem_read_data     (mem_read_data),
-    .alu_result_debug  (alu_result_debug),
-    .reg_write_debug   (reg_write_debug),
-    .rd_addr_debug     (rd_addr_debug)
+    .alu_result_debug     (alu_result_debug),
+    .reg_write_debug      (reg_write_debug),
+    .rd_addr_debug        (rd_addr_debug),
+    .reg_write_data_debug (reg_write_data_debug)
   );
 
   instruction_memory instruction_memory_inst (
