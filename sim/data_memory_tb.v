@@ -7,6 +7,8 @@
 //   2. sw-style write, then lw-style read-back at the same address
 //   3. writes to DIFFERENT addresses land in different words, not aliased
 //   4. mem_write = 0 must not modify memory, even with valid address/data
+//   5. mem_read = 0 forces read_data to 0, even at an address holding real data
+//   6. mem_read = 1 immediately reveals that same real data again
 
 `timescale 1ns / 1ps
 
@@ -75,6 +77,18 @@ module data_memory_tb;
     @(posedge clk); #1;
     #1;
     $display("Test4: mem[8] = %0d (expect 0, mem_write was low so no write happened)", read_data);
+
+    // ---- Test 5: mem_read = 0 must force read_data to 0, even though ----
+    // ---- address 0 genuinely holds 15 (written back in Test 2)       ----
+    address  = 32'd0;
+    mem_read = 1'b0;
+    #1;
+    $display("Test5: mem[0] with mem_read=0 = %0d (expect 0, gated off despite real data present)", read_data);
+
+    // ---- Test 6: mem_read = 1 again immediately reveals the real value ----
+    mem_read = 1'b1;
+    #1;
+    $display("Test6: mem[0] with mem_read=1 = %0d (expect 15, gate re-opened)", read_data);
 
     $display("Data memory testbench finished.");
     $finish;
