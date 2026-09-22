@@ -96,7 +96,14 @@ module riscv_system_tb;
     reset = 1'b1;
     @(posedge clk);
     @(posedge clk);
-    reset = 1'b0;
+    // Non-blocking on purpose: this deassertion and program_counter.v's
+    // own reset check both trigger on this same clock edge, from two
+    // separate initial/always blocks. A blocking assign here is a race
+    // (which one 'wins' is simulator-defined, not spec-defined) - the
+    // non-blocking form guarantees every block sees the OLD value of
+    // reset during this edge's evaluation, and only the NEXT edge sees
+    // it cleared, identically across every compliant simulator.
+    reset <= 1'b0;
   end
 
   // ---- Instruction mnemonic decoder, for readable console output only ----
