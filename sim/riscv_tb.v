@@ -88,8 +88,8 @@ module riscv_tb;
   // ---- Run the program, then check final results ----
   initial begin
 
-    // Reset takes 20ns (2 cycles), the 12-instruction program takes
-    // another 120ns (12 cycles) to fully commit, so 200ns leaves a
+    // Reset takes 20ns (2 cycles), the 13-instruction program takes
+    // another 130ns (13 cycles) to fully commit, so 200ns leaves a
     // comfortable margin to observe the CPU settle into NOPs afterward.
     #200;
 
@@ -106,6 +106,7 @@ module riscv_tb;
     $display("x8  = %0d (expect 15, loaded back from memory)", uut.riscv_core_inst.datapath_inst.regfile_inst.registers[8]);
     $display("x9  = %0d (expect 0, must be skipped by the branch)", uut.riscv_core_inst.datapath_inst.regfile_inst.registers[9]);
     $display("x10 = %0d (expect 111, branch target executed)", uut.riscv_core_inst.datapath_inst.regfile_inst.registers[10]);
+    $display("x11 = %0d (expect 1, slt: 5 < 10 is true)", uut.riscv_core_inst.datapath_inst.regfile_inst.registers[11]);
     $display("mem[0] = %0d (expect 15)", uut.riscv_core_inst.data_memory_inst.mem[0]);
     $display("-----------------------------------------------");
 

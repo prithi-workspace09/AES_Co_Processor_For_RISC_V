@@ -201,9 +201,9 @@ module riscv_system_tb;
     @(posedge clk);
     #1;
 
-    // Narrate one cycle per posedge for the full 12-instruction program,
+    // Narrate one cycle per posedge for the full 13-instruction program,
     // plus 2 extra cycles to show the CPU safely idling on NOPs afterward.
-    for (i = 0; i < 14; i = i + 1) begin
+    for (i = 0; i < 15; i = i + 1) begin
       print_cycle;
       @(posedge clk);
       #1;
@@ -224,6 +224,7 @@ module riscv_system_tb;
     check_reg(8,  15);
     check_reg(9,  0);
     check_reg(10, 111);
+    check_reg(11, 1);
     check_mem(0,  15);
 
     $display("");
